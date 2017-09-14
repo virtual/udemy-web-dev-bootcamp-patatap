@@ -125,7 +125,7 @@
             var randomPoint = Point.random();
             var point = maxPoint * randomPoint;
 
-            var newCircle = new Path.Circle(point, 100);
+            var newCircle = new Path.Circle(point, 150);
             newCircle.fillColor = keyData[event.key].color;
             circles.push(newCircle);
             var someIter = Math.floor(sounds.length * Math.random());
@@ -138,9 +138,14 @@
         }
 
         function onFrame(event) {
-            for (var i = 0; i < circles.length; i++) {
+            for(var i = 0; i < circles.length; i++){
+                circles[i].scale(0.9);
                 circles[i].fillColor.hue += 1;
-                circles[i].scale(.95);
+                if(circles[i].area < 1){
+                    circles[i].remove();
+                    circles.splice(i, 1);
+                    i--; 
+                }
             }
         }
     </script>
