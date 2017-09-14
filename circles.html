@@ -1,25 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Circles</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-        <script src="./paper-full.js"></script>
-        <script type="text/paperscript" canvas="canvas">
-            // Create a Paper.js Path to draw a line into it:
-            var path = new Path();
-            // Give the stroke a color
-            path.strokeColor = 'black';
-            var start = new Point(100, 100);
-            // Move to start and draw a line from there
-            path.moveTo(start);
-            // Note the plus operator on Point objects.
-            // PaperScript does that for us, and much more!
-            path.lineTo(start + [ 100, -50 ]);
-        </script>
-    </head>
-    <body>
-        <canvas id="canvas" resize></canvas>
-    </body>
+
+<head>
+    <title>Circles</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="./paper-full.js"></script>
+    <script canvas="canvas" type="text/paperscript">
+        // type="text/paperscript"
+        // Create a Paper.js Path to draw a line into it:
+        project.currentStyle = {
+            strokeColor: '#000000',
+            fillColor: '#ff0000',
+            strokeWidth: 3
+        };
+
+
+        var path = new Path();
+        // Give the stroke a color
+        path.strokeColor = 'red';
+        var start = new Point(100, 100);
+        // Move to start and draw a line from there
+        path.moveTo(start);
+        // Note the plus operator on Point objects.
+        // PaperScript does that for us, and much more!
+        path.lineTo(start + [100, -50]);
+
+        var myCircle = new Path.Circle(new Point(100, 70), 50);
+        myCircle.fillColor = '#e9e9ff';
+        //myCircle.selected= true;
+        myCircle.strokeColor = '#f00';
+        myCircle.strokeWidth = 10;
+        myCircle.strokeCap = 'round';
+
+
+        var secondPath = new Path.Circle({
+            center: [250, 100],
+            radius: 50
+        });
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" resize></canvas>
+</body>
+
 </html>
