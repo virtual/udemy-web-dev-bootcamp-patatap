@@ -11,34 +11,22 @@
         // type="text/paperscript"
         // Create a Paper.js Path to draw a line into it:
         project.currentStyle = {
-            strokeColor: '#000000',
-            fillColor: '#ff0000',
-            strokeWidth: 3
+            strokeColor: '#000',
+            fillColor: '#003f7f',
+            strokeWidth: 1
         };
 
-
-        var path = new Path();
-        // Give the stroke a color
-        path.strokeColor = 'red';
-        var start = new Point(100, 100);
-        // Move to start and draw a line from there
-        path.moveTo(start);
-        // Note the plus operator on Point objects.
-        // PaperScript does that for us, and much more!
-        path.lineTo(start + [100, -50]);
-
-        var myCircle = new Path.Circle(new Point(100, 70), 10);
-        myCircle.fillColor = '#e9e9ff';
-        //myCircle.selected= true;
-        myCircle.strokeColor = '#f00';
-        myCircle.strokeWidth = 10;
-        myCircle.strokeCap = 'round';
-
-
-        var secondPath = new Path.Circle({
-            center: [250, 100],
-            radius: 50
-        });
+        for (var i = 0; i < 25; i++) {
+            for (var h = 0; h < 20; h++) {
+                var circle = new Path.Circle({
+                    center: [i * 100, h * 100],
+                    radius: 18
+                });
+                var gradientPercent = .1 * i / Math.sqrt(h);
+                circle.fillColor = 'rgba(100,0,100, '+ gradientPercent +')';
+            }
+        }
+        
     </script>
 </head>
 
