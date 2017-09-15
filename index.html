@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Patatap Demo using Paper.js | satinflame design</title>
     <meta charset="UTF-8">
@@ -9,7 +10,7 @@
     <meta property="og:image" content="https://virtual.github.io/udemy-web-dev-bootcamp-patatap/meta-image.jpg" />
     <meta property="og:url" content="https://virtual.github.io/udemy-web-dev-bootcamp-patatap" />
     <meta property="og:site_name" content="Virtual on GitHub" />
-    <meta property="og:description" content="A Patatap replica from Colt Steele's Udemy Web Development Bootcamp"/>
+    <meta property="og:description" content="A Patatap replica from Colt Steele's Udemy Web Development Bootcamp" />
     <meta property="og:locale" content="en_us" />
     <link rel="image_src" href="https://virtual.github.io/udemy-web-dev-bootcamp-patatap/meta-image.jpg" />
 
@@ -17,142 +18,167 @@
     <script src="./paper-full.js"></script>
     <script src="./howler.js"></script>
     <script canvas="canvas" type="text/paperscript">
-        
         var circles = [];
-        var sounds = ["bubbles.mp3","clay.mp3","confetti.mp3","corona.mp3","dotted-spiral.mp3","flash-1.mp3","flash-2.mp3","flash-3.mp3","glimmer.mp3","moon.mp3","pinwheel.mp3","piston-1.mp3","piston-2.mp3","piston-3.mp3","prism-1.mp3","prism-2.mp3","prism-3.mp3","splits.mp3","squiggle.mp3","strike.mp3","suspension.mp3","timer.mp3","ufo.mp3","veil.mp3","wipe.mp3","zig-zag.mp3"];
+        var sounds = ["bubbles.mp3", "clay.mp3", "confetti.mp3", "corona.mp3", "dotted-spiral.mp3", "flash-1.mp3",
+            "flash-2.mp3", "flash-3.mp3", "glimmer.mp3", "moon.mp3", "pinwheel.mp3", "piston-1.mp3", "piston-2.mp3",
+            "piston-3.mp3", "prism-1.mp3", "prism-2.mp3", "prism-3.mp3", "splits.mp3", "squiggle.mp3", "strike.mp3",
+            "suspension.mp3", "timer.mp3", "ufo.mp3", "veil.mp3", "wipe.mp3", "zig-zag.mp3"
+        ];
+        var colors = ["#F1224A", "#6EBCCB", "#7772FE", "#6F9FF7", "#047866", "#E8D70B", "#83FEEE", "#D40D58"]
         var keyData = {
             a: {
                 color: "#F1224A",
                 sound: sounds[0]
-            }, 
+            },
             b: {
                 color: "#6EBCCB",
                 sound: sounds[1]
-            }, 
+            },
             c: {
                 color: "#7772FE",
                 sound: sounds[2]
-            }, 
+            },
             d: {
                 color: "#6F9FF7",
                 sound: sounds[3]
-            }, 
+            },
             e: {
                 color: "#047866",
                 sound: sounds[4]
-            }, 
+            },
             f: {
                 color: "#E8D70B",
                 sound: sounds[5]
-            }, 
+            },
             g: {
                 color: "#83FEEE",
                 sound: sounds[6]
-            }, 
+            },
             h: {
                 color: "#D40D58",
                 sound: sounds[7]
-            }, 
+            },
             i: {
                 color: "#3A8F16",
                 sound: sounds[8]
-            }, 
+            },
             j: {
                 color: "#994185",
                 sound: sounds[9]
-            }, 
+            },
             k: {
                 color: "#724560",
                 sound: sounds[10]
-            }, 
+            },
             l: {
                 color: "#D8CC0F",
                 sound: sounds[11]
-            }, 
+            },
             m: {
                 color: "#A85B01",
                 sound: sounds[12]
-            }, 
+            },
             n: {
                 color: "#A267F7",
                 sound: sounds[13]
-            }, 
+            },
             o: {
                 color: "#FBD79E",
                 sound: sounds[14]
-            }, 
+            },
             p: {
                 color: "#0E01F1",
                 sound: sounds[15]
-            }, 
+            },
             q: {
                 color: "#8B6553",
                 sound: sounds[16]
-            }, 
+            },
             r: {
                 color: "#2B6303",
                 sound: sounds[17]
-            }, 
+            },
             s: {
                 color: "#C3695E",
                 sound: sounds[18]
-            }, 
+            },
             t: {
                 color: "#F234DD",
                 sound: sounds[19]
-            }, 
+            },
             u: {
                 color: "#82BFB0",
                 sound: sounds[20]
-            }, 
+            },
             v: {
                 color: "#6C2B3B",
                 sound: sounds[21]
-            }, 
+            },
             w: {
                 color: "#60C8B0",
                 sound: sounds[22]
-            }, 
+            },
             x: {
                 color: "#9606FB",
                 sound: sounds[23]
-            }, 
+            },
             y: {
                 color: "#22C77A",
                 sound: sounds[24]
-            }, 
+            },
             z: {
                 color: "#B44507",
                 sound: sounds[25]
             }
-        } 
+        }
+
+        function playSound() {
+            var someIter = Math.floor(sounds.length * Math.random());
+            var sound = new Howl({
+                src: "sounds/" + sounds[someIter]
+            });
+            sound.play();
+        }
+
+        function randomCircle(point) {
+            var newCircle = new Path.Circle(point, 150);
+            var someColor = Math.floor(colors.length * Math.random());
+            newCircle.fillColor = colors[someColor];
+            circles.push(newCircle);
+        }
 
         function onKeyDown(event) {
             if (keyData[event.key]) {
-            var maxPoint = new Point(view.size.width, view.size.height);
-            var randomPoint = Point.random();
-            var point = maxPoint * randomPoint;
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
 
-            var newCircle = new Path.Circle(point, 150);
-            newCircle.fillColor = keyData[event.key].color;
-            circles.push(newCircle);
-            var someIter = Math.floor(sounds.length * Math.random());
-            
-            var sound = new Howl({
-                src: "sounds/"+keyData[event.key].sound
-            }); 
-            sound.play();
+                var newCircle = new Path.Circle(point, 150);
+                newCircle.fillColor = keyData[event.key].color;
+                circles.push(newCircle);
+
+                var sound = new Howl({
+                    src: "sounds/" + keyData[event.key].sound
+                });
+                sound.play();
+
             }
         }
 
+        // So it has some interactivity on mobile
+        function onMouseDown(event) {
+            playSound();
+            randomCircle(event.point);
+        }
+
         function onFrame(event) {
-            for(var i = 0; i < circles.length; i++){
+            for (var i = 0; i < circles.length; i++) {
                 circles[i].scale(0.9);
                 circles[i].fillColor.hue += 1;
-                if(circles[i].area < 1){
+                if (circles[i].area < 1) {
                     circles[i].remove();
                     circles.splice(i, 1);
-                    i--; 
+                    i--;
                 }
             }
         }
